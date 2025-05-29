@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jayakanth's Online Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+    #product-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .product {
+      background: white;
+      padding: 10px;
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      text-align: center;
+    }
+    button {
+      background-color: #28a745;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #cart {
+      background: #fff;
+      margin: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Jayakanth's Shop</h1>
+  </header>
+
+  <nav>
+    <a href="login.html">Go to Login Page</a>
+  </nav>
+
+  <section id="product-list"></section>
+
+  <div id="cart">
+    <h3>🛒 Cart</h3>
+    <p>Your cart is empty.</p>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, name: "T-shirt", price: 499 },
+      { id: 2, name: "Shoes", price: 999 },
+      { id: 3, name: "Jeans", price: 799 },
+      { id: 4, name: "Hat", price: 199 },
+      { id: 5, name: "Sunglasses", price: 299 },
+      { id: 6, name: "Backpack", price: 1199 }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const cartDiv = document.getElementById("cart");
+    const cart = [];
+
+    products.forEach(product => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <strong>${product.name}</strong><br>
+        ₹${product.price}<br><br>
+        <button onclick="addToCart(${product.id})">Add to Cart</button>
+      `;
+      productList.appendChild(div);
+    });
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      cart.push(product);
+      alert(product.name + " added to cart!");
+      showCart();
+    }
+
+    function showCart() {
+      if (cart.length === 0) {
+        cartDiv.innerHTML = "<h3>🛒 Cart</h3><p>Your cart is empty.</p>";
+        return;
+      }
+
+      let total = 0;
+      cartDiv.innerHTML = "<h3>🛒 Cart</h3>";
+      cart.forEach(item => {
+        cartDiv.innerHTML += <p>${item.name} - ₹${item.price}</p>;
+        total += item.price;
+      });
+      cartDiv.innerHTML += <hr><strong>Total: ₹${total}</strong>;
+    }
+  </script>
+</body>
+</html>
